@@ -20,7 +20,7 @@ jobs:
       - name: Run Focus Engine
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python agents/focus_engine.py
+        run: python3 agents/focus_engine.py
 
       - name: Commit outputs
         run: |

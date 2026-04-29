@@ -20,7 +20,7 @@ jobs:
       - name: Generate Weekly Review
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python agents/weekly_review.py
+        run: python3 agents/weekly_review.py
 
       - name: Commit review
         run: |
