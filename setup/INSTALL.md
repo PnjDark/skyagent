@@ -3,14 +3,15 @@
 ## Prerequisites
 - GitHub account
 - Telegram account  
-- Gemini API key (free)
+- Groq API key (free)
 
 ---
 
-## Step 1: Get Gemini API Key
+## Step 1: Get Groq API Key
 
-1. Go to: https://makersuite.google.com/app/apikey
-2. Click "Create API Key" → copy it
+1. Go to: https://console.groq.com
+2. Sign up (free, no billing required)
+3. API Keys → Create API Key → copy it
 
 ## Step 2: Create Telegram Bot
 
@@ -20,7 +21,7 @@
 ## Step 3: Add GitHub Secrets
 
 Repo → Settings → Secrets and variables → Actions → New secret:
-- `GEMINI_API_KEY`
+- `GROQ_API_KEY`
 - `TELEGRAM_BOT_TOKEN`
 
 ## Step 4: Initialize & Push
@@ -37,7 +38,7 @@ git push
 ## Step 5: Test Locally
 
 ```bash
-export GEMINI_API_KEY="your_key"
+export GROQ_API_KEY="your_key"
 export TELEGRAM_BOT_TOKEN="your_token"
 
 python agents/focus_engine.py
@@ -54,7 +55,7 @@ Check `outputs/TODAY.md` appears in repo.
 
 1. Go to railway.app
 2. Connect GitHub repo
-3. Add env vars: `TELEGRAM_BOT_TOKEN`, `GEMINI_API_KEY`
+3. Add env vars: `TELEGRAM_BOT_TOKEN`, `GROQ_API_KEY`
 4. Set start command: `python agents/telegram_bot.py`
 5. Deploy
 

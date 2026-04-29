@@ -4,7 +4,7 @@ AI system that tells you exactly what to work on every morning.
 
 ## What it does
 
-- **7 AM daily**: Scores all your projects, generates `outputs/TODAY.md` with 3 priorities
+- **7 AM daily**: Scores all your projects, generates `outputs/TODAY.md` with 3 priorities (powered by Groq/Llama)
 - **Telegram bot**: `/focus`, `/done`, `/status` commands
 - **Friday 8 PM**: Weekly review with brutal honesty
 - **Auto-tracks**: Logs what you ship, adjusts tomorrow's priorities

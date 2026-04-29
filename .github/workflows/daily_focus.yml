@@ -15,11 +15,11 @@ jobs:
         with:
           python-version: '3.11'
 
-      - run: pip install google-generativeai
+      - run: pip install groq python-telegram-bot
 
       - name: Run Focus Engine
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: python3 agents/focus_engine.py
 
       - name: Commit outputs

@@ -1,10 +1,9 @@
 import json
 import os
 from datetime import datetime
-import google.generativeai as genai
+from groq import Groq
 
-genai.configure(api_key=os.environ['GEMINI_API_KEY'])
-model = genai.GenerativeModel('gemini-pro')
+client = Groq(api_key=os.environ['GROQ_API_KEY'])
 
 
 class FocusEngine:
@@ -103,7 +102,10 @@ Format exactly:
 
 Max 200 words."""
 
-        return model.generate_content(prompt).text
+        return client.chat.completions.create(
+            model='llama-3.3-70b-versatile',
+            messages=[{'role': 'user', 'content': prompt}]
+        ).choices[0].message.content
 
     def run(self):
         print("🧠 Focus Engine starting...")
