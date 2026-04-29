@@ -1,0 +1,27 @@
+{
+  "scoring": {
+    "tier_weights": { "S": 30, "A": 25, "B": 15, "C": 10, "D": 5 },
+    "deadline_urgency_max": 20,
+    "revenue_weights": {
+      "direct": 15,
+      "reputation": 12,
+      "showcase": 8,
+      "community": 5,
+      "indirect": 6
+    },
+    "momentum_max": 15,
+    "stuck_penalty": -20,
+    "completion_bonus_range": [70, 90],
+    "completion_bonus_points": 10
+  },
+  "thresholds": {
+    "stuck_days": 14,
+    "danger_zone_days": 21,
+    "max_daily_priorities": 3
+  },
+  "time_estimates": {
+    "small_task": "30min",
+    "medium_task": "2hr",
+    "large_task": "4hr"
+  }
+}

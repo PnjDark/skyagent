@@ -1,0 +1,31 @@
+name: Weekly Review
+
+on:
+  schedule:
+    - cron: '0 20 * * 5'  # Friday 8 PM UTC
+  workflow_dispatch:
+
+jobs:
+  generate-review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - run: pip install google-generativeai
+
+      - name: Generate Weekly Review
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python agents/weekly_review.py
+
+      - name: Commit review
+        run: |
+          git config --global user.name 'Focus Engine'
+          git config --global user.email 'focus@penjy.dev'
+          git add outputs/WEEKLY_REVIEW.md
+          git diff --staged --quiet || git commit -m "📊 Weekly review $(date +%Y-%m-%d)"
+          git push
