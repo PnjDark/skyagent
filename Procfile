@@ -1,2 +1,2 @@
 web: uvicorn api.main:app --host 0.0.0.0 --port $PORT
-worker: python agents/telegram_bot.py
+worker: python -m agents.telegram_bot
