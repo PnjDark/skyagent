@@ -1,117 +1,214 @@
-# FOCUS ENGINE — INSTALLATION
+# Focus Engine — Installation Guide
 
-## Prerequisites
-- GitHub account
-- Telegram account
-- Groq API key (free)
+## What you need accounts for
+
+| Service | Purpose | Cost |
+|---------|---------|------|
+| Supabase | Database | Free tier |
+| Railway | Backend + Telegram bot | Free tier |
+| Vercel | Dashboard | Free tier |
+| Groq | AI (Llama) | Free tier |
+| Telegram | Bot | Free |
+| Buffer | Social scheduling | Free tier |
+| GitHub | Source of truth | Free |
 
 ---
 
-## Step 1: Get Groq API Key
+## Phase 1 — Database (Supabase)
 
-1. Go to: https://console.groq.com
-2. Sign up (free, no billing required)
-3. API Keys → Create API Key → copy it
+### 1.1 Create project
 
-## Step 2: Create Telegram Bot
+1. Go to [supabase.com](https://supabase.com) → New project
+2. Settings → API → copy:
+   - `Project URL` → `SUPABASE_URL`
+   - `anon public` key → `SUPABASE_KEY`
 
-1. Open Telegram → message @BotFather
-2. Send `/newbot` → follow prompts → copy token
+### 1.2 Run schema
 
-## Step 3: Generate a Webhook Secret
+1. Supabase dashboard → SQL Editor
+2. Paste contents of `setup/schema.sql` → Run
 
+### 1.3 Migrate existing data
+
+If you have existing JSON data, run the migration from Railway after deploying (Phase 2):
+
+```bash
+python setup/migrate.py
+```
+
+---
+
+## Phase 2 — Backend (Railway)
+
+### 2.1 Deploy
+
+1. Go to [railway.app](https://railway.app) → New Project → Deploy from GitHub repo
+2. Railway detects the `Procfile` and runs:
+   - `web` — FastAPI server (public URL, handles webhooks + API)
+   - `worker` — Telegram bot (polling)
+
+### 2.2 Set environment variables
+
+In Railway dashboard → your service → Variables:
+
+```
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_KEY=your-anon-key
+GROQ_API_KEY=your-groq-key
+TELEGRAM_BOT_TOKEN=your-telegram-token
+GITHUB_WEBHOOK_SECRET=your-generated-secret
+BUFFER_ACCESS_TOKEN=your-buffer-token
+RAILWAY_URL=https://your-service.up.railway.app
+```
+
+### 2.3 Get your keys
+
+**Groq API key**
+1. [console.groq.com](https://console.groq.com) → API Keys → Create
+
+**Telegram bot token**
+1. Telegram → message @BotFather → `/newbot` → copy token
+
+**GitHub webhook secret**
 ```bash
 python -c "import secrets; print(secrets.token_hex(32))"
 ```
 
-Save the output — you'll use it as `GITHUB_WEBHOOK_SECRET`.
+**Buffer access token**
+1. [publish.buffer.com/settings/api](https://publish.buffer.com/settings/api) → copy token
 
-## Step 4: Create a GitHub Personal Access Token
+### 2.4 Copy Railway URL
 
-1. GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)
-2. Generate new token → scopes: `repo`, `read:user`
-3. Copy the token
+After first deploy, Railway gives you a public URL like `https://your-app.up.railway.app`.
+Set this as `RAILWAY_URL` in Railway variables.
 
-## Step 5: Configure Environment Variables
+---
 
-**For local use**, create a `.env` file in the project root:
+## Phase 3 — GitHub Webhooks
 
-```bash
-GROQ_API_KEY=your_groq_key
-TELEGRAM_BOT_TOKEN=your_telegram_token
-GITHUB_TOKEN=your_github_pat
-GITHUB_USERNAME=your_github_username
-GITHUB_WEBHOOK_SECRET=your_generated_secret
-```
-
-**For GitHub Actions**, add secrets in repo → Settings → Secrets and variables → Actions:
-- `GROQ_API_KEY`
-- `TELEGRAM_BOT_TOKEN`
-
-## Step 6: Install & Test Locally
-
-```bash
-git clone https://github.com/penjy/focus-engine.git
-cd focus-engine
-pip install -r requirements.txt
-
-# Test focus engine
-python agents/focus_engine.py
-cat outputs/TODAY.md
-
-# Test webhook server
-uvicorn api.main:app --reload
-# Visit http://localhost:8000/health
-```
-
-## Step 7: Deploy to Railway
-
-1. Go to railway.app → New Project → Deploy from GitHub repo
-2. Railway will detect the `Procfile` and run both processes automatically:
-   - `web` — FastAPI webhook server (public URL)
-   - `worker` — Telegram bot (polling)
-3. Add all environment variables in Railway dashboard:
-   - `GROQ_API_KEY`
-   - `TELEGRAM_BOT_TOKEN`
-   - `GITHUB_TOKEN`
-   - `GITHUB_USERNAME`
-   - `GITHUB_WEBHOOK_SECRET`
-4. After deploy, copy your Railway public URL (e.g. `https://your-app.up.railway.app`)
-
-## Step 8: Configure GitHub Webhooks
-
-For each repo you want to track (repeat per project):
+For each repo you want to track:
 
 1. Repo → Settings → Webhooks → Add webhook
 2. Fill in:
    - **Payload URL**: `https://your-app.up.railway.app/webhooks/github`
    - **Content type**: `application/json`
    - **Secret**: your `GITHUB_WEBHOOK_SECRET`
-3. Under "Which events?", select **Let me select individual events** and check:
+3. Select individual events:
    - ✅ Pushes
    - ✅ Pull requests
    - ✅ Releases
    - ✅ Issues
    - ✅ Stars
    - ✅ Forks
-4. Click **Add webhook** — GitHub will send a ping and show a green checkmark
+   - ✅ Repositories
+4. Click **Add webhook** — GitHub sends a ping, green checkmark = working
 
-## Step 9: Verify Everything
+---
 
-```bash
-# 1. Trigger a GitHub Action manually
-# Actions tab → "Daily Focus Engine" → Run workflow
-# Check outputs/TODAY.md appears in repo
+## Phase 4 — Dashboard (Vercel)
 
-# 2. Test the webhook
-# Make a commit to any tracked repo, then in Telegram:
-/wins       # should show the commit
-/activity   # should show score > 0
+### 4.1 Deploy
 
-# 3. Test bot commands
-/focus      # today's priorities
-/status     # project health
-/ghost      # activity check
+1. Go to [vercel.com](https://vercel.com) → New Project → Import GitHub repo
+2. **Root Directory** → set to `dashboard`
+3. Framework preset → Next.js (auto-detected)
+4. Deploy
+
+### 4.2 Set environment variables
+
+In Vercel → project → Settings → Environment Variables:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+NEXT_PUBLIC_RAILWAY_URL=https://your-app.up.railway.app
 ```
 
-Done.
+---
+
+## Phase 5 — Cron jobs (Railway)
+
+Replace the old GitHub Actions workflows with Railway cron services.
+
+In Railway → New Service → Cron:
+
+| Name | Schedule | Command |
+|------|----------|---------|
+| Morning focus | `0 7 * * *` | `python -c "import httpx; httpx.post('$RAILWAY_URL/scoring/run')"` |
+| Weekly review | `0 20 * * 5` | `python agents/weekly_review.py` |
+
+---
+
+## Verify everything works
+
+### 1. Health check
+```
+GET https://your-app.up.railway.app/health
+→ {"status": "ok"}
+```
+
+### 2. Trigger scoring manually
+```
+POST https://your-app.up.railway.app/scoring/run
+→ {"status": "ok", "date": "...", "report": "🎯 FOCUS FOR TODAY..."}
+```
+
+### 3. Test Telegram bot
+```
+/focus      → today's priorities
+/status     → project health
+/ghost      → activity check
+/wins       → recent GitHub events
+```
+
+### 4. Test webhook
+Make a commit to any tracked repo, then:
+```
+/wins       → should show the push event
+/activity   → should show score > 0
+```
+
+### 5. Test content pipeline
+Push a release to any tracked repo:
+```
+/drafts     → should show a pending LinkedIn + X draft
+/schedule 1 → approves and queues to Buffer
+```
+
+### 6. Run tests
+```bash
+python -m pytest tests/ -v
+→ 75 passed
+```
+
+---
+
+## Supabase Row Level Security (optional but recommended)
+
+After verifying everything works, enable RLS on sensitive tables:
+
+```sql
+-- Only allow reads from your anon key (dashboard)
+alter table content_drafts enable row level security;
+create policy "anon read" on content_drafts for select using (true);
+
+-- Block direct inserts/updates from dashboard (Railway handles writes)
+create policy "no direct write" on content_drafts for insert with check (false);
+```
+
+---
+
+## Environment variable summary
+
+| Variable | Used by | Where to get it |
+|----------|---------|----------------|
+| `SUPABASE_URL` | Railway, Vercel | Supabase → Settings → API |
+| `SUPABASE_KEY` | Railway | Supabase → Settings → API (anon key) |
+| `NEXT_PUBLIC_SUPABASE_URL` | Vercel | same as above |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Vercel | same as above |
+| `GROQ_API_KEY` | Railway | console.groq.com |
+| `TELEGRAM_BOT_TOKEN` | Railway | @BotFather on Telegram |
+| `GITHUB_WEBHOOK_SECRET` | Railway | generate with `secrets.token_hex(32)` |
+| `BUFFER_ACCESS_TOKEN` | Railway | publish.buffer.com/settings/api |
+| `RAILWAY_URL` | Railway, Vercel | Railway dashboard after first deploy |
+| `NEXT_PUBLIC_RAILWAY_URL` | Vercel | same as above |
