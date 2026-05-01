@@ -1,0 +1,87 @@
+2026-04-30T23:45:13.139377434Z [inf]  scheduling build on Metal builder "production-builderv3-us-west1-jmns"
+2026-04-30T23:45:22.639769886Z [inf]  unpacking archive
+2026-04-30T23:45:22.694784307Z [inf]  using build driver railpack-v0.23.0
+2026-04-30T23:45:22.968069691Z [inf]  uploading snapshot
+2026-04-30T23:45:23.398494926Z [inf]                     
+2026-04-30T23:45:23.398499613Z [inf]  [38;2;125;86;243m╭─────────────────╮[0m
+2026-04-30T23:45:23.398500039Z [inf]  [38;2;125;86;243m│[0m Railpack 0.23.0 [38;2;125;86;243m│[0m
+2026-04-30T23:45:23.398500659Z [inf]  [38;2;125;86;243m╰─────────────────╯[0m
+2026-04-30T23:45:23.398503545Z [inf]  
+2026-04-30T23:45:23.398504893Z [inf]    [97m↳ Detected Python[0m
+2026-04-30T23:45:23.398505503Z [inf]    [97m↳ Using pip[0m
+2026-04-30T23:45:23.398506714Z [inf]    [97m↳ Found web command in Procfile[0m
+2026-04-30T23:45:23.398507579Z [inf]              
+2026-04-30T23:45:23.398508361Z [inf]    [1mPackages[0m  
+2026-04-30T23:45:23.398509003Z [inf]    [38;5;238m──────────[0m
+2026-04-30T23:45:23.398509910Z [inf]    [95mpython[0m  [38;5;238m│[0m  [96m3.13.13[0m  [38;5;238m│[0m  railpack default (3.13)
+2026-04-30T23:45:23.398510329Z [inf]              
+2026-04-30T23:45:23.398511580Z [inf]    [1mSteps[0m     
+2026-04-30T23:45:23.398512168Z [inf]    [38;5;238m──────────[0m
+2026-04-30T23:45:23.398512747Z [inf]    [95m▸ install[0m
+2026-04-30T23:45:23.398513723Z [inf]      [38;5;245m$[0m [1mpython -m venv /app/.venv[0m
+2026-04-30T23:45:23.398514307Z [inf]      [38;5;245m$[0m [1mpip install -r requirements.txt[0m
+2026-04-30T23:45:23.398514898Z [inf]              
+2026-04-30T23:45:23.398515487Z [inf]    [1mDeploy[0m    
+2026-04-30T23:45:23.398516124Z [inf]    [38;5;238m──────────[0m
+2026-04-30T23:45:23.398516518Z [inf]      [38;5;245m$[0m [1mpython agents/telegram_bot.py[0m
+2026-04-30T23:45:23.398516939Z [inf]  
+2026-04-30T23:45:23.462537676Z [inf]  resolve image config for docker-image://ghcr.io/railwayapp/railpack-frontend:v0.23.0
+2026-04-30T23:45:23.730651225Z [inf]  resolve image config for docker-image://ghcr.io/railwayapp/railpack-frontend:v0.23.0
+2026-04-30T23:45:23.730764085Z [inf]  docker-image://ghcr.io/railwayapp/railpack-frontend:v0.23.0@sha256:ba4c430961d9ee3215c64807727a4b11e2198daac31250e9db9eaf9cee4624d6
+2026-04-30T23:45:23.730764676Z [inf]  docker-image://ghcr.io/railwayapp/railpack-frontend:v0.23.0@sha256:ba4c430961d9ee3215c64807727a4b11e2198daac31250e9db9eaf9cee4624d6
+2026-04-30T23:45:23.730765270Z [inf]  docker-image://ghcr.io/railwayapp/railpack-frontend:v0.23.0@sha256:ba4c430961d9ee3215c64807727a4b11e2198daac31250e9db9eaf9cee4624d6
+2026-04-30T23:45:23.826807476Z [inf]  load build definition from ./railpack-plan.json
+2026-04-30T23:45:23.826816190Z [inf]  load build definition from ./railpack-plan.json
+2026-04-30T23:45:23.827569692Z [inf]  load build definition from ./railpack-plan.json
+2026-04-30T23:45:23.841965339Z [inf]  load build definition from ./railpack-plan.json
+2026-04-30T23:45:23.856732613Z [inf]  docker-image://ghcr.io/railwayapp/railpack-runtime:mise-2026.3.17
+2026-04-30T23:45:23.856733493Z [inf]  docker-image://ghcr.io/railwayapp/railpack-runtime:mise-2026.3.17
+2026-04-30T23:45:23.856733907Z [inf]  docker-image://ghcr.io/railwayapp/railpack-runtime:mise-2026.3.17
+2026-04-30T23:45:23.856912814Z [inf]  copy /root/.local/state/mise
+2026-04-30T23:45:23.856913802Z [inf]  copy /etc/mise/config.toml
+2026-04-30T23:45:23.856914431Z [inf]  copy /usr/local/bin/mise
+2026-04-30T23:45:23.856915363Z [inf]  loading .
+2026-04-30T23:45:23.856915938Z [inf]  copy /mise/shims
+2026-04-30T23:45:23.856916461Z [inf]  install mise packages: python
+2026-04-30T23:45:23.856916987Z [inf]  create mise config
+2026-04-30T23:45:23.856917537Z [inf]  mkdir /etc/mise
+2026-04-30T23:45:23.856918080Z [inf]  copy requirements.txt
+2026-04-30T23:45:23.856918577Z [inf]  python -m venv /app/.venv
+2026-04-30T23:45:23.856919130Z [inf]  copy /mise/installs
+2026-04-30T23:45:23.856919661Z [inf]  docker-image://ghcr.io/railwayapp/railpack-builder:mise-2026.3.17
+2026-04-30T23:45:23.856920176Z [inf]  docker-image://ghcr.io/railwayapp/railpack-builder:mise-2026.3.17
+2026-04-30T23:45:23.856932141Z [inf]  [railpack] merge ghcr.io/railwayapp/railpack-runtime:mise-2026.3.17, $packages:mise, $build, $build
+2026-04-30T23:45:23.856932712Z [inf]  copy /app
+2026-04-30T23:45:23.856933144Z [inf]  copy /app/.venv
+2026-04-30T23:45:23.856934039Z [inf]  copy / /app
+2026-04-30T23:45:23.856934625Z [inf]  pip install -r requirements.txt
+2026-04-30T23:45:23.857075778Z [inf]  loading .
+2026-04-30T23:45:23.873072225Z [inf]  loading .
+2026-04-30T23:45:25.043059912Z [inf]  loading .
+2026-04-30T23:45:25.063079551Z [inf]  mkdir /etc/mise
+2026-04-30T23:45:25.063080491Z [inf]  create mise config
+2026-04-30T23:45:25.063081178Z [inf]  install mise packages: python
+2026-04-30T23:45:25.063081646Z [inf]  python -m venv /app/.venv
+2026-04-30T23:45:25.063082211Z [inf]  copy requirements.txt
+2026-04-30T23:45:25.063083926Z [inf]  pip install -r requirements.txt
+2026-04-30T23:45:25.063086411Z [inf]  copy / /app
+2026-04-30T23:45:25.938955218Z [inf]  copy / /app
+2026-04-30T23:45:33.285726662Z [inf]  copy /app
+2026-04-30T23:45:33.285808617Z [inf]  copy /mise/shims
+2026-04-30T23:45:33.285810026Z [inf]  copy /mise/installs
+2026-04-30T23:45:33.285810705Z [inf]  copy /usr/local/bin/mise
+2026-04-30T23:45:33.285812348Z [inf]  copy /etc/mise/config.toml
+2026-04-30T23:45:33.285812905Z [inf]  copy /root/.local/state/mise
+2026-04-30T23:45:33.285813533Z [inf]  copy /app/.venv
+2026-04-30T23:45:33.285821752Z [inf]  copy /app/.venv
+2026-04-30T23:45:33.286159113Z [inf]  copy /root/.local/state/mise
+2026-04-30T23:45:33.859588049Z [inf]  copy /app
+2026-04-30T23:45:33.896465198Z [inf]  [railpack] merge ghcr.io/railwayapp/railpack-runtime:mise-2026.3.17, $packages:mise, $build, $build
+2026-04-30T23:45:34.082338435Z [inf]  [railpack] merge ghcr.io/railwayapp/railpack-runtime:mise-2026.3.17, $packages:mise, $build, $build
+2026-04-30T23:45:34.116095309Z [inf]  exporting to docker image format
+2026-04-30T23:45:35.951425857Z [inf]  exporting to docker image format
+2026-04-30T23:45:35.993201165Z [inf]  containerimage.descriptor: eyJtZWRpYVR5cGUiOiJhcHBsaWNhdGlvbi92bmQub2NpLmltYWdlLm1hbmlmZXN0LnYxK2pzb24iLCJkaWdlc3QiOiJzaGEyNTY6OWM0OWU5YWQzMzJlZjNmNGQ1MTdkNjE0NGUzZDcyMDcyMjZiODhhYWYxYTFhMjQ3N2ZiMmI3N2Y5YjYwNGUxYSIsInNpemUiOjIwMTAsImFubm90YXRpb25zIjp7Im9yZy5vcGVuY29udGFpbmVycy5pbWFnZS5jcmVhdGVkIjoiMjAyNi0wNC0zMFQyMzo0NTozNVoifSwicGxhdGZvcm0iOnsiYXJjaGl0ZWN0dXJlIjoiYW1kNjQiLCJvcyI6ImxpbnV4In19
+2026-04-30T23:45:35.993203563Z [inf]  containerimage.config.digest: sha256:cd9b82e15a2a9044bf8390300cea5d4456fb940e09b90008de1a04b3acc58ebc
+2026-04-30T23:45:35.993204453Z [inf]  containerimage.digest: sha256:9c49e9ad332ef3f4d517d6144e3d7207226b88aaf1a1a2477fb2b77f9b604e1a
+2026-04-30T23:45:48.308260962Z [inf]  image push
+2026-04-30T23:45:48.308320795Z [inf]  image push

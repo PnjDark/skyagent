@@ -1,0 +1,45 @@
+2026-04-30T23:46:11.232672597Z [inf]  Starting Container
+2026-04-30T23:46:12.195171772Z [err]      from agents.db import get_db
+2026-04-30T23:46:12.195177587Z [err]  ModuleNotFoundError: No module named 'agents'
+2026-04-30T23:46:12.195301183Z [err]  Traceback (most recent call last):
+2026-04-30T23:46:12.195306718Z [err]    File "/app/agents/telegram_bot.py", line 6, in <module>
+2026-04-30T23:46:13.282470790Z [err]  Traceback (most recent call last):
+2026-04-30T23:46:13.282477519Z [err]    File "/app/agents/telegram_bot.py", line 6, in <module>
+2026-04-30T23:46:13.282484050Z [err]      from agents.db import get_db
+2026-04-30T23:46:13.282489867Z [err]  ModuleNotFoundError: No module named 'agents'
+2026-04-30T23:46:15.185081162Z [err]  Traceback (most recent call last):
+2026-04-30T23:46:15.185094847Z [err]    File "/app/agents/telegram_bot.py", line 6, in <module>
+2026-04-30T23:46:15.185102972Z [err]      from agents.db import get_db
+2026-04-30T23:46:15.185149984Z [err]  ModuleNotFoundError: No module named 'agents'
+2026-04-30T23:46:17.348616254Z [err]  Traceback (most recent call last):
+2026-04-30T23:46:17.348620666Z [err]    File "/app/agents/telegram_bot.py", line 6, in <module>
+2026-04-30T23:46:17.348625260Z [err]      from agents.db import get_db
+2026-04-30T23:46:17.348629502Z [err]  ModuleNotFoundError: No module named 'agents'
+2026-04-30T23:46:19.377164008Z [err]  Traceback (most recent call last):
+2026-04-30T23:46:19.377169268Z [err]    File "/app/agents/telegram_bot.py", line 6, in <module>
+2026-04-30T23:46:19.377175522Z [err]      from agents.db import get_db
+2026-04-30T23:46:19.377181290Z [err]  ModuleNotFoundError: No module named 'agents'
+2026-04-30T23:46:21.287869167Z [err]  ModuleNotFoundError: No module named 'agents'
+2026-04-30T23:46:21.287877308Z [err]  Traceback (most recent call last):
+2026-04-30T23:46:21.287886895Z [err]    File "/app/agents/telegram_bot.py", line 6, in <module>
+2026-04-30T23:46:21.287894543Z [err]      from agents.db import get_db
+2026-04-30T23:46:23.369004811Z [err]  Traceback (most recent call last):
+2026-04-30T23:46:23.369009332Z [err]    File "/app/agents/telegram_bot.py", line 6, in <module>
+2026-04-30T23:46:23.369013702Z [err]      from agents.db import get_db
+2026-04-30T23:46:23.369017644Z [err]  ModuleNotFoundError: No module named 'agents'
+2026-04-30T23:46:25.350739436Z [err]  Traceback (most recent call last):
+2026-04-30T23:46:25.350746261Z [err]    File "/app/agents/telegram_bot.py", line 6, in <module>
+2026-04-30T23:46:25.350753142Z [err]      from agents.db import get_db
+2026-04-30T23:46:25.350761034Z [err]  ModuleNotFoundError: No module named 'agents'
+2026-04-30T23:46:27.395824484Z [err]  Traceback (most recent call last):
+2026-04-30T23:46:27.395830314Z [err]    File "/app/agents/telegram_bot.py", line 6, in <module>
+2026-04-30T23:46:27.395836451Z [err]      from agents.db import get_db
+2026-04-30T23:46:27.395844896Z [err]  ModuleNotFoundError: No module named 'agents'
+2026-04-30T23:46:29.530688740Z [err]  Traceback (most recent call last):
+2026-04-30T23:46:29.530694382Z [err]    File "/app/agents/telegram_bot.py", line 6, in <module>
+2026-04-30T23:46:29.530699316Z [err]      from agents.db import get_db
+2026-04-30T23:46:29.530705180Z [err]  ModuleNotFoundError: No module named 'agents'
+2026-04-30T23:46:31.546536056Z [err]  Traceback (most recent call last):
+2026-04-30T23:46:31.546540503Z [err]    File "/app/agents/telegram_bot.py", line 6, in <module>
+2026-04-30T23:46:31.546544395Z [err]      from agents.db import get_db
+2026-04-30T23:46:31.546550130Z [err]  ModuleNotFoundError: No module named 'agents'

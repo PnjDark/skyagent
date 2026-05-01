@@ -2,8 +2,18 @@ import json
 import os
 from datetime import datetime, timedelta
 from groq import Groq
+from dotenv import load_dotenv
 
-client = Groq(api_key=os.environ['GROQ_API_KEY'])
+load_dotenv()
+
+client = Groq(api_key=os.environ['GROQ_API_KEY'])</xai:function_call.
+
+
+
+
+
+<xai:function_call name="edit_file">
+<parameter name="path">agents/telegram_bot.py
 
 
 def generate_weekly_review():

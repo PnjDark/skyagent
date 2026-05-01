@@ -2,8 +2,11 @@ import os
 import json
 import subprocess
 from datetime import datetime
+from dotenv import load_dotenv
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
+
+load_dotenv()
 
 TOKEN = os.environ['TELEGRAM_BOT_TOKEN']
 
