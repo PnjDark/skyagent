@@ -1,12 +1,22 @@
 from datetime import datetime, timezone, timedelta
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from agents.db import get_db
 from groq import Groq
 import os
 import json
 
 router = APIRouter()
-client = Groq(api_key=os.environ['GROQ_API_KEY'])
+client = None
+
+
+def _get_groq_client():
+    global client
+    if client is None:
+        api_key = os.environ.get('GROQ_API_KEY')
+        if not api_key:
+            raise HTTPException(status_code=500, detail='GROQ_API_KEY is not set')
+        client = Groq(api_key=api_key)
+    return client
 
 
 def _github_boost(repo: str, db) -> int:
@@ -98,7 +108,7 @@ Format exactly:
 
 Max 200 words."""
 
-    return client.chat.completions.create(
+    return _get_groq_client().chat.completions.create(
         model='llama-3.3-70b-versatile',
         messages=[{'role': 'user', 'content': prompt}]
     ).choices[0].message.content

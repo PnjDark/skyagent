@@ -1,11 +1,21 @@
 import os
 import json
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from groq import Groq
 from agents.db import get_db
 
 router = APIRouter()
-client = Groq(api_key=os.environ['GROQ_API_KEY'])
+client = None
+
+
+def _get_groq_client():
+    global client
+    if client is None:
+        api_key = os.environ.get('GROQ_API_KEY')
+        if not api_key:
+            raise HTTPException(status_code=500, detail='GROQ_API_KEY is not set')
+        client = Groq(api_key=api_key)
+    return client
 
 DRAFT_EVENTS = {'release', 'pr_merged', 'repo_publicized', 'repo_created'}
 
@@ -43,7 +53,7 @@ Also write one sentence to update the portfolio card description for this projec
 Return as JSON:
 {{"linkedin": "...", "x": "...", "portfolio_update": "..."}}"""
 
-    response = client.chat.completions.create(
+    response = _get_groq_client().chat.completions.create(
         model='llama-3.3-70b-versatile',
         messages=[{'role': 'user', 'content': prompt}],
         response_format={'type': 'json_object'},
