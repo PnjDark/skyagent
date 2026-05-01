@@ -1,4 +1,4 @@
-#!/home/penjy/dev/focusagent/venv/bin/python3
+#!/home/penjy/dev/focusagent/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

@@ -1,28 +1,26 @@
-import os
 import json
-import sys
-from pathlib import Path
-from datetime import datetime, timezone, timedelta
+import os
+from datetime import datetime, timedelta
 from groq import Groq
+from dotenv import load_dotenv
 
-if __package__ in (None, ''):
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
-from agents.db import get_db
+load_dotenv()
 
 client = Groq(api_key=os.environ['GROQ_API_KEY'])
 
 
+
+
+
+
 def generate_weekly_review():
-    db = get_db()
-    week_ago = (datetime.now(timezone.utc) - timedelta(days=7)).date().isoformat()
+    with open('data/project_status.json') as f:
+        status = json.load(f)
+    with open('data/projects.json') as f:
+        projects = json.load(f)
 
-    logs = db.table('project_logs').select('*').gte('date', week_ago).execute().data
-    projects = db.table('projects').select('*').execute().data
-
-    week_data = {}
-    for log in logs:
-        week_data.setdefault(log['date'], {})[log['project_id']] = log['achievement']
+    week_ago = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
+    week_data = {k: v for k, v in status.items() if k >= week_ago}
 
     prompt = f"""Generate a weekly review for Penjy.
 
@@ -30,7 +28,7 @@ This week's activity:
 {json.dumps(week_data, indent=2)}
 
 Current project status:
-{json.dumps([{'id': p['id'], 'tier': p['tier'], 'status': p['status'], 'completion': p.get('completion', 0), 'last_activity': p.get('last_activity')} for p in projects], indent=2)}
+{json.dumps(projects, indent=2)}
 
 Format:
 📊 WEEKLY REVIEW — [Date Range]
@@ -60,14 +58,11 @@ Under 300 words. Be direct."""
         messages=[{'role': 'user', 'content': prompt}]
     ).choices[0].message.content
 
-    # Store in daily_priorities table with a weekly flag
-    db.table('daily_priorities').upsert({
-        'date': datetime.now(timezone.utc).date().isoformat(),
-        'content': report,
-        'priorities': [],
-    }, on_conflict='date').execute()
+    os.makedirs('outputs', exist_ok=True)
+    with open('outputs/WEEKLY_REVIEW.md', 'w') as f:
+        f.write(report)
 
-    print('✅ Weekly review generated')
+    print("✅ Weekly review generated")
     return report
 
 
