@@ -1,8 +1,14 @@
 import os
+import sys
+from pathlib import Path
 import httpx
 from datetime import datetime, timezone, timedelta
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
+
+if __package__ in (None, ''):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
 from agents.db import get_db
 
 TOKEN = os.environ['TELEGRAM_BOT_TOKEN']

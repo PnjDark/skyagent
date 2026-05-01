@@ -1,7 +1,13 @@
 import os
 import json
+import sys
+from pathlib import Path
 from datetime import datetime, timezone, timedelta
 from groq import Groq
+
+if __package__ in (None, ''):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
 from agents.db import get_db
 
 client = Groq(api_key=os.environ['GROQ_API_KEY'])
