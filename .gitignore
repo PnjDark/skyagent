@@ -8,6 +8,10 @@ __pycache__/
 .venv/
 venv/
 
+# Node / Next.js
+node_modules/
+.next/
+
 # Outputs (regenerated at runtime)
 outputs/
 
