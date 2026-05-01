@@ -24,5 +24,9 @@ app.include_router(portfolio_router, prefix='/portfolio')
 def health():
     return {'status': 'ok'}
 
+@app.get('/')
+def root():
+    return {'name': 'Focus Engine API', 'status': 'ok'}
+
 if __name__ == '__main__':
     uvicorn.run('api.main:app', host='0.0.0.0', port=8000)
