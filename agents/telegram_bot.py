@@ -12,7 +12,21 @@ if __package__ in (None, ''):
 from agents.db import get_db
 
 TOKEN = os.environ['TELEGRAM_BOT_TOKEN']
-RAILWAY_URL = os.environ.get('RAILWAY_URL', 'http://localhost:8000')
+RAILWAY_URL = os.environ.get('RAILWAY_URL', 'http://localhost:8000').rstrip('/')
+
+HELP_TEXT = (
+    "🎯 Focus Engine\n\n"
+    "/focus — Today's priorities\n"
+    "/generate — Regenerate focus\n"
+    "/done <project> <what you did> — Log progress\n"
+    "/status — Project health dashboard\n"
+    "/wins — Recent GitHub-backed wins\n"
+    "/activity — Repo activity summary\n"
+    "/ghost — Check if you've gone quiet\n"
+    "/drafts — Content drafts waiting for approval\n"
+    "/schedule <id> — Send approved draft to Buffer\n"
+    "/help — Show this command list"
+)
 
 
 # ── helpers ──────────────────────────────────────────────────────────────────
@@ -27,18 +41,11 @@ def days_since(date_str: str) -> int:
 # ── commands ─────────────────────────────────────────────────────────────────
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "🎯 Focus Engine\n\n"
-        "/focus — Today's priorities\n"
-        "/generate — Regenerate focus\n"
-        "/done <project> <what you did> — Log progress\n"
-        "/status — Project health dashboard\n"
-        "/wins — Recent GitHub-backed wins\n"
-        "/activity — Repo activity summary\n"
-        "/ghost — Check if you've gone quiet\n"
-        "/drafts — Content drafts waiting for approval\n"
-        "/schedule <id> — Send approved draft to Buffer"
-    )
+    await update.message.reply_text(HELP_TEXT)
+
+
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(HELP_TEXT)
 
 
 async def focus(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -232,6 +239,7 @@ def main():
     app = Application.builder().token(TOKEN).build()
     for cmd, fn in [
         ('start',    start),
+        ('help',     help_command),
         ('focus',    focus),
         ('generate', generate),
         ('done',     done),

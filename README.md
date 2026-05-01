@@ -152,3 +152,7 @@ Add to the `projects` table in Supabase. Include `github_repo` to enable GitHub 
 ## Quick start
 
 See [setup/INSTALL.md](setup/INSTALL.md)
+
+## Portfolio
+
+For the live portfolio API endpoint and Next.js integration guide, see [docs/PORTFOLIO.md](docs/PORTFOLIO.md).
