@@ -1,7 +1,7 @@
 import { query } from '@/lib/db'
 import { getTodaysFocus } from '@/lib/focus'
 
-export const revalidate = 60
+export const dynamic = 'force-dynamic'
 
 async function getData() {
   const [projects, wins, activity, focus] = await Promise.all([
